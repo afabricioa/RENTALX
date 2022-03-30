@@ -43,6 +43,34 @@
                         "description": "Categoria já existe!"
                     }
                 }
+            },
+            "get": {
+                "tags": ["Category"],
+                "summary": "Listar as categorias",
+                "description": "Listar todas as categorias",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
