@@ -16,3 +16,4 @@ getConnectionOptions().then(options => {
 //npm run typeorm migration:create src/database/migrations/CreateCategories
 //npm run typeorm migration:run
 //npm run typeorm migration:revert
+//npx typeorm migration:create -n nomeMigration
