@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "RentalX Documentation",
+        "title": "RentX Documentation",
         "description": "This is an API Rent",
         "version": "1.0.0",
         "contact": {
@@ -70,6 +70,64 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": ["Categoria"],
+                "summary": "Importar Categorias",
+                "description": "Importar novas categorias para o sistema.",
+                "requestBody": {
+                    "content": {
+                        "application/octet-stream": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Importado com Sucesso!"
+                    }
+                }
+            }
+        },
+        "/specifications": {
+            "post": {
+                "tags": ["Specifications"],
+                "summary": "Criar uma Especificação",
+                "description": "Criar uma nova Especificação no sistema.",
+                "requestBody": {
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/definitions/Specification"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado!"
+                    },
+                    "500": {
+                        "description": "Especificação já existe."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Specification": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
                 }
             }
         }
