@@ -1,7 +1,9 @@
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
-import { getRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
+
+import { AppDataSource } from "../../../../database/databaseConfig";
 
 //DTO - data transfer object
 
@@ -12,7 +14,12 @@ class CategoriesRepository implements ICategoriesRepository {
     private static INSTANCE: CategoriesRepository;
 
     constructor() {
-        this.repository = getRepository(Category);
+        console.log("teste")
+        try{
+            this.repository = AppDataSource.getRepository(Category);
+        }catch(error){
+            console.log(error)
+        }
     }
 
     // public static getInstance(): CategoriesRepository {
@@ -25,12 +32,22 @@ class CategoriesRepository implements ICategoriesRepository {
     // }
 
     async create({name, description} : ICreateCategoryDTO): Promise<void> {
+        const categoryExiste = await this.repository.findOneBy({name});
+
+        if(categoryExiste){
+            throw new Error("Categoria já existe!");
+            //return response.status(400).json({error: "Categoria já cadastrada!"});
+        }
         const category = this.repository.create({
             description,
             name
         });
 
-        await this.repository.save(category)
+        try {
+            await this.repository.save(category);        
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async list(): Promise<Category[]>{
@@ -41,7 +58,7 @@ class CategoriesRepository implements ICategoriesRepository {
 
     async findByName(name: string): Promise<Category> {
         //Select * from categories where name = 'name' limit 1
-        const category = await this.repository.findOne({name})
+        const category = await this.repository.findOneBy({name})
 
         return category;
     }

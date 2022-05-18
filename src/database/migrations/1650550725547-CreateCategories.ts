@@ -9,7 +9,7 @@ export class CreateCategories1650550725547 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "uuid",
+                        type: "varchar",
                         isPrimary: true
                     },
                     {
@@ -22,8 +22,7 @@ export class CreateCategories1650550725547 implements MigrationInterface {
                     },
                     {
                         name: "created_at",
-                        type: "timestamp",
-                        default: "now()"
+                        type: "timestamp"
                     }
                 ]
             })

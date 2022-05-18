@@ -21,13 +21,6 @@ class CreateCategoryUseCase {
     }
 
     async execute({name, description} : IRequest): Promise<void> {
-        const categoryExiste = await this.categoriesRepository.findByName(name);
-
-        if(categoryExiste){
-            throw new Error("Categoria já existe!");
-            //return response.status(400).json({error: "Categoria já cadastrada!"});
-        }
-
         this.categoriesRepository.create({name, description})
     }
 }

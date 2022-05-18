@@ -1,17 +1,9 @@
-import { createConnection, getConnectionOptions } from "typeorm";
-console.log("Arq database")
+import { AppDataSource } from "./databaseConfig"
 
-interface IOptions {
-    host: string;
-}
-getConnectionOptions().then(options => {
-    const newOptions = options as IOptions;
-    newOptions.host = 'database_ignite'
+AppDataSource.initialize().then(async () => {
+    console.log("Iniciando Oracle")
+}).catch(error => console.log("error: ", error))
 
-    createConnection({
-        ...options
-    });
-});
 
 //npm run typeorm migration:create src/database/migrations/CreateCategories
 //npm run typeorm migration:run
