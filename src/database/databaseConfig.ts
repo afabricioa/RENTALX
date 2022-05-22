@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     port: 1521,
     serviceName: "2fadbbf464c14a0c9c8d18febd989db3",
     connectString: "dev",
-    synchronize: true,
+    synchronize: false,
     logging: false,
     entities: ["src/modules/**/entities/**/*.ts"],
     migrations: ["src/database/migrations/**/*.ts"],
