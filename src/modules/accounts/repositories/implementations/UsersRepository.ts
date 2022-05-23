@@ -1,6 +1,5 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../../database/databaseConfig";
-import { ICreateUsersDTO } from "../../../dtos/ICreateUsersDTO";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
 
@@ -10,11 +9,11 @@ class UsersRepository implements IUsersRepository {
     constructor() {
         this.repository = AppDataSource.getRepository(User);
     }
-    async create({name, username, password, email, driver_license}): Promise<void>{
+    
+    async create({name, password, email, driver_license}): Promise<void>{
         const created_at = new Date();
         const user = this.repository.create({
             name, 
-            username, 
             password, 
             email, 
             driver_license,
@@ -22,6 +21,18 @@ class UsersRepository implements IUsersRepository {
         });
 
         await this.repository.save(user);
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.repository.findOneBy({email});
+
+        return user;
+    }
+
+    async findById(id: string): Promise<User> {
+        const user = await this.repository.findOneBy({id})
+
+        return user;
     }
 }
 
