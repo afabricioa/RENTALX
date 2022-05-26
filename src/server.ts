@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 import "./database";
 
@@ -13,6 +14,8 @@ const app = express();
 
 //use é para poder aceitar json no body
 app.use(express.json());
+
+app.use(cors());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 

@@ -11,7 +11,8 @@ interface IRequest {
 interface IResponse{
     user: {
         name: string,
-        email: string
+        email: string,
+        roles: string[]
     },
     token: string;
 }
@@ -48,10 +49,11 @@ class AuthenticateUserUseCase {
             token,
             user: {
                 name: user.name,
-                email: user.email
+                email: user.email,
+                roles: ['ADMIN', 'OPERADOR']
             }
         }
-
+        
         return tokenReturn
     }
 }
